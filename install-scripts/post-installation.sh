@@ -47,6 +47,9 @@ else
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
     apt-get update
     apt-get -y install docker-ce docker-ce-cli containerd.io
+    apt -y install docker.io
+
+    usermod -aG docker $USER
 
 
     echo "=== Installing GitKraken  =============="
@@ -73,8 +76,9 @@ else
 	apt -y install vlc -y
 
 
-    echo "=== Installing Unity Tweak Tool =============="
-	apt  -y install unity-tweak-tool -y
+    echo "=== Installing Gnome Tweak Tool =============="
+	apt -y install gnome-tweaks
+
 
 
     echo "=== Installing spotify =============="
