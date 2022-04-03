@@ -41,6 +41,15 @@ else
     apt -y install code
 
 
+    echo "=== Install VSCode Extensions for User frank =============="
+    su frank -c "code --install-extension ms-vscode-remote.remote-container"
+    su frank -c "code --install-extension  ms-azuretools.vscode-docker"
+    su frank -c "code --install-extension  eamodio.gitlens"
+    su frank -c "code --install-extension  ms-vscode.azurecli"
+    su frank -c "code --install-extension  esbenp.prettier-vscode"
+    su frank -c "code --install-extension  vscode-icons-team.vscode-icons"
+
+
     echo "=== Installing Docker =============="
 
     apt-get -y install ca-certificates curl gnupg lsb-release
