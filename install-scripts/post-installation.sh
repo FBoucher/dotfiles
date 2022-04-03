@@ -30,7 +30,7 @@ else
 
 
     echo "=== Installing VSCode =============="
-    apt-get install wget gpg
+    apt-get -y install wget gpg
     wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
     install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
     sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
@@ -38,15 +38,15 @@ else
 
     apt install apt-transport-https
     apt update
-    apt install code
+    apt -y install code
 
 
     echo "=== Installing Docker =============="
 
-    apt-get install ca-certificates curl gnupg lsb-release
+    apt-get -y install ca-certificates curl gnupg lsb-release
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
     apt-get update
-    apt-get install docker-ce docker-ce-cli containerd.io
+    apt-get -y install docker-ce docker-ce-cli containerd.io
 
 
     echo "=== Installing GitKraken  =============="
@@ -60,9 +60,9 @@ else
 
     echo "=== Installing OBS Studio =============="
     apt-get -y install v4l2loopback-dkms
-    add-apt-repository ppa:obsproject/obs-studio
+    add-apt-repository -y ppa:obsproject/obs-studio
     apt update
-    apt install obs-studio
+    apt -y install obs-studio
 
 
     echo "=== Installing AzCLI =============="
@@ -70,11 +70,11 @@ else
 
 
     echo "=== Installing VLC =============="
-	apt install vlc -y
+	apt -y install vlc -y
 
 
     echo "=== Installing Unity Tweak Tool =============="
-	apt install unity-tweak-tool -y
+	apt  -y install unity-tweak-tool -y
 
 
     echo "=== Installing spotify =============="
