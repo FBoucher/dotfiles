@@ -10,11 +10,15 @@ else
 
 
 	echo "=== Updating and Upgrading =============="
-	apt-get update && sudo apt-get upgrade -y
+	apt-get update && apt-get upgrade -y
+
+
+    echo "=== Installing curl =============="
+    apt-get -y install curl
 
 
     echo "=== Installing Keepassx =============="
-    sudo apt-get -y install keepassx
+    apt-get -y install keepassx
 
 
 	echo "=== Installing Git =============="
@@ -40,7 +44,7 @@ else
     echo "=== Installing Docker =============="
 
     apt-get install ca-certificates curl gnupg lsb-release
-    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
     apt-get update
     apt-get install docker-ce docker-ce-cli containerd.io
 
