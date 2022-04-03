@@ -99,8 +99,10 @@ else
 
     echo "=== Installing NanoRC =============="
     curl https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh | sh
+    echo "set linenumbers" >> .nanorc
 
 
-    
+    echo "=== Installing onts-powerline =============="
+    apt -y install fonts-powerline    
 
 fi
