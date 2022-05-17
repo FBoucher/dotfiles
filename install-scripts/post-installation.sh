@@ -26,7 +26,7 @@ else
 
 
     echo "=== Installing Ubuntu Restricted Extras =============="
-	apt install ubunt-restricted-extras -y
+	apt install ubuntu-restricted-extras -y
 
 
     echo "=== Installing VSCode =============="
