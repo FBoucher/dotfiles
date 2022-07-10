@@ -18,7 +18,7 @@ else
 
 
     echo "=== Installing Keepassx =============="
-    apt-get -y install keepassx
+    apt-get -y install keepassxc
 
 
 	echo "=== Installing Git =============="
@@ -111,7 +111,7 @@ else
     echo "set linenumbers" >> .nanorc
 
 
-    echo "=== Installing onts-powerline =============="
+    echo "=== Installing fonts-powerline =============="
     apt -y install fonts-powerline    
 
 fi
