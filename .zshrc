@@ -8,7 +8,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="agnoster"
+ZSH_THEME="agnoster-fb"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -71,7 +71,7 @@ ZSH_THEME="agnoster"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git
-        dotnet)
+	dotnet)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -100,11 +100,41 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+function dnames-fn {
+	for ID in `docker ps | awk '{print $1}' | grep -v 'CONTAINER'`
+	do
+    	docker inspect $ID | grep Name | head -1 | awk '{print $2}' | sed 's/,//g' | sed 's%/%%g' | sed 's/"//g'
+	done
+}
+
+
+
 alias aqua="~/games/asciiquarium"
 alias '?'=duck
 alias '??'=google
 alias nv=nvim
 alias cl=clear
+alias rn="dotnet run --project ~/dev/github/fboucher/ReadingNotesTools/readingnotes.postapi/readingnotes.postapi.csproj"
+alias 2d6="docker compose -f ~/dev/github/fboucher/2d6-dungeon-app/.devcontainer/docker-compose.API.yml up -d"
+alias 2d6d="docker compose -f ~/dev/github/fboucher/2d6-dungeon-app/.devcontainer/docker-compose.API.yml down"
+alias dds="systemctl --user start docker-desktop"
+alias dcu="docker compose up -d"
+alias dcd="docker compose down"
+alias dps="docker ps |  grep -v Exited | cut -c1-$COLUMNS"
+alias dpsa="docker ps -a"
+alias dnames=dnames-fn
+alias nvc="nordvpn connect"
+alias nvd="nordvpn disconnect"
+alias ll='eza -l --icons --group-directories-first'
+alias la='eza -l --icons --group-directories-first -A'
+alias l='eza  --icons --group-directories-first'
+alias dive="docker run -ti --rm  -v /var/run/docker.sock:/var/run/docker.sock wagoodman/dive"
+alias hg="history | grep " # +command
+
+
+
+unalias gk
 
 PATH="/home/frank/perl5/bin${PATH:+:${PATH}}"; export PATH;
 PATH="/home/frank/scripts${PATH:+:${PATH}}"; export PATH;
@@ -112,3 +142,6 @@ PERL5LIB="/home/frank/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB
 PERL_LOCAL_LIB_ROOT="/home/frank/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
 PERL_MB_OPT="--install_base \"/home/frank/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/home/frank/perl5"; export PERL_MM_OPT;
+export DOTNET_ROOT=$HOME/.dotnet
+export PATH=$PATH:$DOTNET_ROOT:$DOTNET_ROOT/tools
+

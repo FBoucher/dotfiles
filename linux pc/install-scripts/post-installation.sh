@@ -32,8 +32,7 @@ else
     echo "=== Installing VSCode =============="
     apt-get -y install wget gpg
     wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
-    install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
-    sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
+    install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/n    sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
     rm -f packages.microsoft.gpg
 
     apt install apt-transport-https
@@ -52,11 +51,22 @@ else
 
     echo "=== Installing Docker =============="
 
-    apt-get -y install ca-certificates curl gnupg lsb-release
-    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+    apt-get -y install ca-certificates curl gnupg
+    install -m 0755 -d /etc/apt/keyrings
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+    chmod a+r /etc/apt/keyrings/docker.gpg
+    echo "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
+    curl https://desktop.docker.com/linux/main/amd64/docker-desktop-4.21.1-amd64.deb
     apt-get update
-    apt-get -y install docker-ce docker-ce-cli containerd.io
-    apt -y install docker.io
+    apt-get -y install ./docker-desktop-4.21.1-amd64.deb
+
+
+    # apt-get -y install ca-certificates curl gnupg lsb-release
+    # curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+    # apt-get update
+    # apt-get -y install docker-ce docker-ce-cli containerd.io
+    # apt -y install docker.io
 
     usermod -aG docker $USER
 
@@ -68,6 +78,10 @@ else
 
     echo "=== Installing ZSH =============="
     apt-get -y install zsh
+
+    echo "=== Installing Oh my zsh =============="
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    cp ../../oh-my-zsh/custom/agnoster-fb.zsh-theme ~/.oh-my-zsh/custom/
 
 
     echo "=== Installing OBS Studio =============="
@@ -89,6 +103,13 @@ else
 	apt -y install gnome-tweaks
 
 
+    echo "=== Installing Eza (file-listing tool) =============="
+    mkdir -p /etc/apt/keyrings
+    wget -qO- https://raw.githubusercontent.com/eza-community/eza/main/deb.asc | sudo gpg --dearmor -o /etc/apt/keyrings/gierens.gpg
+    echo "deb [signed-by=/etc/apt/keyrings/gierens.gpg] http://deb.gierens.de stable main" | sudo tee /etc/apt/sources.list.d/gierens.list
+    chmod 644 /etc/apt/keyrings/gierens.gpg /etc/apt/sources.list.d/gierens.list
+    apt update
+    apt install -y eza
 
     echo "=== Installing spotify =============="
     snap install spotify
@@ -101,10 +122,6 @@ else
     echo "=== Installing Slack =============="
     snap install slack
 
-
-    echo "=== Installing OneNote Desktop =============="
-    snap install onenote-desktop
-    
 
     echo "=== Installing NanoRC =============="
     curl https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh | sh

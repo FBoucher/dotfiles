@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 # author: rwxrob
-echo -e ${PATH//:/\\n}
+echo -e ${PATH//:/\
+}
